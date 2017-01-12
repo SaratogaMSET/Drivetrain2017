@@ -21,6 +21,12 @@ public class RobotMap {
 		public static final int[] DRIVE_SOL = {4,5};
 		
 	}
+	public static class Shooter{
+		public static final int LEFT_SHOOTER_VICTOR = 0;
+		public static final int RIGHT_SHOOTER_VICTOR = 1;
+		public static final double LEFT_SHOOTER_POWER = 0.5;
+		public static final double RIGHT_SHOOTER_POWER = 0.5;
+	}
 
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.

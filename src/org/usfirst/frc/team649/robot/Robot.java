@@ -4,6 +4,7 @@ package org.usfirst.frc.team649.robot;
 
 
 import org.usfirst.frc.team649.robot.subsystems.DrivetrainSubsystem;
+import org.usfirst.frc.team649.robot.subsystems.ShooterSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,12 +25,13 @@ public class Robot extends IterativeRobot {
 
 	public static DrivetrainSubsystem drive;
 	OI oi;
-	
+	public static ShooterSubsystem shoot;
 
 
 	
     public void robotInit() {
     	drive = new DrivetrainSubsystem();
+    	shoot = new ShooterSubsystem();
     	oi = new OI();
 
     }
@@ -56,9 +58,8 @@ public class Robot extends IterativeRobot {
 
 	
     public void autonomousInit() {
-       
-
-		} 
+     
+	} 
     	
     	
     
@@ -82,6 +83,9 @@ public class Robot extends IterativeRobot {
     		drive.shift(true);
     	}else{
     		drive.shift(false);
+    	}
+    	if(oi.operator.shootPressed()){
+    		shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER, RobotMap.Shooter.RIGHT_SHOOTER_POWER);;
     	}
 
     	drive.spikey();

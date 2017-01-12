@@ -17,16 +17,23 @@ public class OI {
 	public Joystick driveJoystickVertical;
 	
 	public Driver driver;
+	public Operator operator;
 	
 	public OI() {
 		operatorJoystick = new Joystick(RobotMap.OPERATOR_JOYSTICK);
 		driveJoystickHorizontal = new Joystick(RobotMap.DRIVE_JOYSTICK_HORIZONTAL);
 		driveJoystickVertical = new Joystick(RobotMap.DRIVE_JOYSTICK_VERTICAL);
 		driver = new Driver();
+		operator = new Operator();
 	}
 	
 
-	    
+		public class Operator {
+			public boolean shootPressed() {
+				return operatorJoystick.getRawButton(1);
+			}
+		}
+	
 	    public class Driver {
 
 			public double getForward() {
