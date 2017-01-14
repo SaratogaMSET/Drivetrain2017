@@ -22,9 +22,13 @@ public class DrivetrainSubsystem extends Subsystem {
 	public Relay spike;
 	public Compressor compressCAN;
 	public DoubleSolenoid driveSol;
+	double currentSpeedLeft;
+	double currentSpeedRight;
 
 	
 	public DrivetrainSubsystem() {
+		currentSpeedLeft = 0.0;
+		currentSpeedRight = 0.0;
 		//leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_SIDE_ENCODER[0],RobotMap.Drivetrain.LEFT_SIDE_ENCODER[1],false);
 		//rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_SIDE_ENCODER[0],RobotMap.Drivetrain.RIGHT_SIDE_ENCODER[1],true);
 //		leftEncoder.setDistancePerPulse(360.0 / 256.0
@@ -44,7 +48,75 @@ public class DrivetrainSubsystem extends Subsystem {
 		
 	}
 	public void autoShift(){
-		
+//		if((leftEncoder.getRate() + rightEncoder.getRate())/2 > RobotMap.Drivetrain.MAX_LOW_SPEED*0.75){
+//			shift(true);
+//		}else{
+//			shift(false);
+//		}
+	}
+	public void driveWithEncoder(double left, double right){
+		double targetRPMLeft = RobotMap.Drivetrain.MAX_SPEED*left;
+		double targetRPMRight = RobotMap.Drivetrain.MAX_SPEED*right;
+		double curretEncoderLeft = leftEncoder.getRate();
+		double curretEncoderRight = rightEncoder.getRate();
+		if(targetRPMLeft < 0.0){
+			if(curretEncoderLeft>targetRPMLeft){
+				double diff = Math.abs(targetRPMLeft) - Math.abs(curretEncoderLeft);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED*2);
+				currentSpeedLeft -= powerDiff;
+				//go further negative
+			}else{
+				double diff = Math.abs(curretEncoderLeft) - Math.abs(targetRPMLeft);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED);
+				currentSpeedLeft += powerDiff;
+				//go more towards 0
+			}
+		}else if(targetRPMLeft > 0.0){
+			if(curretEncoderLeft<targetRPMLeft){
+				double diff = Math.abs(targetRPMLeft) - Math.abs(curretEncoderLeft);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED*2);
+				currentSpeedLeft += powerDiff;
+				//go more positive
+			}else{
+				double diff = Math.abs(curretEncoderLeft) - Math.abs(targetRPMLeft);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED);
+				currentSpeedLeft -= powerDiff;
+				//go more towards 0
+			}
+		}else{
+			currentSpeedLeft = 0.0;
+		}
+		if(targetRPMRight < 0.0){
+			if(curretEncoderRight>targetRPMRight){
+				double diff = Math.abs(targetRPMRight) - Math.abs(curretEncoderRight);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED*2);
+				currentSpeedRight -= powerDiff;
+				//go further negative
+			}else{
+				double diff = Math.abs(curretEncoderRight) - Math.abs(targetRPMRight);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED);
+				currentSpeedRight += powerDiff;
+				//go more towards 0
+			} 
+		}else if(targetRPMRight > 0.0){
+			if(curretEncoderRight<targetRPMRight){
+				double diff = Math.abs(targetRPMRight) - Math.abs(curretEncoderRight);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED*2);
+				currentSpeedRight += powerDiff;
+				//go more positive
+			}else{
+				double diff = Math.abs(curretEncoderRight) - Math.abs(targetRPMRight);
+				double powerDiff = diff/(RobotMap.Drivetrain.MAX_SPEED);
+				currentSpeedRight -= powerDiff;
+				//go more towards 0
+			}
+		}else{
+			currentSpeedRight = 0.0;
+		}
+		motors[0].set(currentSpeedRight);
+		motors[1].set(currentSpeedRight);
+		motors[2].set(currentSpeedLeft);
+		motors[3].set(currentSpeedLeft);
 	}
 	public double leftEncoderSpeed(){
 		return leftEncoder.getRate();

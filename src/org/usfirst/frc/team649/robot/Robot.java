@@ -77,10 +77,7 @@ public class Robot extends IterativeRobot {
     }
 		
     public void teleopPeriodic() {
-//    	SmartDashboard.putBoolean("limit", drive.isPressed());
-//    	SmartDashboard.putData("leftDrive", drive.leftEncoder);
-//    	SmartDashboard.putData("rightDrive", drive.rightEncoder);
-//    	SmartDashboard.putBoolean("Shift", oi.driveJoystickVertical.getRawButton(1));
+
     	if(oi.driver.shift()){
     		drive.shift(true);
     	}else{

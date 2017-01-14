@@ -30,8 +30,8 @@ public class RobotMap {
 		public static final double RIGHT_SHOOTER_POWER_MAX = 0.4;
 		public static final double LEFT_SHOOTER_POWER_MID = 0.4;
 		public static final double RIGHT_SHOOTER_POWER_MID = 0.4;
-		public static final double LEFT_SHOOTER_POWER_MIN = 0.8;
-		public static final double RIGHT_SHOOTER_POWER_MIN = 0.8;
+		public static final double LEFT_SHOOTER_POWER_MIN = 1.0;
+		public static final double RIGHT_SHOOTER_POWER_MIN = 1.0;
 	}
 
     // For example to map the left and right motors, you could define the
