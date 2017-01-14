@@ -26,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public static DrivetrainSubsystem drive;
 	OI oi;
 	public static ShooterSubsystem shoot;
+	public String shootState;
 
 
 	
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
     	drive = new DrivetrainSubsystem();
     	shoot = new ShooterSubsystem();
     	oi = new OI();
+    	shootState = "low";
 
     }
 	
@@ -76,16 +78,39 @@ public class Robot extends IterativeRobot {
 		
     public void teleopPeriodic() {
 //    	SmartDashboard.putBoolean("limit", drive.isPressed());
-    	SmartDashboard.putData("leftDrive", drive.leftEncoder);
-    	SmartDashboard.putData("rightDrive", drive.rightEncoder);
-    	SmartDashboard.putBoolean("Shift", oi.driveJoystickVertical.getRawButton(1));
+//    	SmartDashboard.putData("leftDrive", drive.leftEncoder);
+//    	SmartDashboard.putData("rightDrive", drive.rightEncoder);
+//    	SmartDashboard.putBoolean("Shift", oi.driveJoystickVertical.getRawButton(1));
     	if(oi.driver.shift()){
     		drive.shift(true);
     	}else{
     		drive.shift(false);
     	}
+    	if(oi.operator.lowPowerStatePressed()){
+    		shootState = "low";
+    	}
+    	if(oi.operator.middlePowerStatePressed()){
+    		shootState = "mid";
+    	}
+    	if(oi.operator.maxPowerstatePressed()){
+    		shootState = "high";
+    	}
     	if(oi.operator.shootPressed()){
-    		shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER, RobotMap.Shooter.RIGHT_SHOOTER_POWER);;
+    		switch(shootState){
+    		case "low":
+    			shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MIN, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MIN);
+    			break;
+    		case "mid":
+    			shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MID, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MID);
+    			break;
+    		case "high":
+    			shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MAX, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MAX);
+    			break;
+    		}
+    		
+    	}
+    	else{
+    		shoot.shoot(0.0, 0.0);
     	}
 
     	drive.spikey();

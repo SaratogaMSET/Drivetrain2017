@@ -19,13 +19,19 @@ public class RobotMap {
 		public static final int SPIKE_PORT = 0;
 		public static final int COMPRESS_LIMIT_CAN = 9;
 		public static final int[] DRIVE_SOL = {4,5};
+		public static final double MAX_SPEED = 20.0;
+		public static final double MAX_LOW_SPEED = 12.0;
 		
 	}
 	public static class Shooter{
-		public static final int LEFT_SHOOTER_VICTOR = 0;
-		public static final int RIGHT_SHOOTER_VICTOR = 1;
-		public static final double LEFT_SHOOTER_POWER = 0.5;
-		public static final double RIGHT_SHOOTER_POWER = 0.5;
+		public static final int LEFT_SHOOTER_VICTOR = 5;
+		public static final int RIGHT_SHOOTER_VICTOR = 4;
+		public static final double LEFT_SHOOTER_POWER_MAX = 0.4;
+		public static final double RIGHT_SHOOTER_POWER_MAX = 0.4;
+		public static final double LEFT_SHOOTER_POWER_MID = 0.4;
+		public static final double RIGHT_SHOOTER_POWER_MID = 0.4;
+		public static final double LEFT_SHOOTER_POWER_MIN = 0.8;
+		public static final double RIGHT_SHOOTER_POWER_MIN = 0.8;
 	}
 
     // For example to map the left and right motors, you could define the

@@ -32,6 +32,15 @@ public class OI {
 			public boolean shootPressed() {
 				return operatorJoystick.getRawButton(1);
 			}
+			public boolean lowPowerStatePressed(){
+				return operatorJoystick.getRawButton(12);
+			}
+			public boolean middlePowerStatePressed(){
+				return operatorJoystick.getRawButton(10);
+			}
+			public boolean maxPowerstatePressed(){
+				return operatorJoystick.getRawButton(8);
+			}
 		}
 	
 	    public class Driver {
