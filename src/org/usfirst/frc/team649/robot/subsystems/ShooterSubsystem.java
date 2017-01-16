@@ -20,7 +20,7 @@ public class ShooterSubsystem extends Subsystem {
 	}
 	public void shoot(double leftRatio, double rightRatio){
 		leftMotor.set(-leftRatio);
-		rightMotor.set(-rightRatio);
+		rightMotor.set(rightRatio);
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

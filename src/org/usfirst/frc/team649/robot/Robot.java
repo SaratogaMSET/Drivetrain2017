@@ -77,12 +77,19 @@ public class Robot extends IterativeRobot {
     }
 		
     public void teleopPeriodic() {
-
-    	if(oi.driver.shift()){
-    		drive.shift(true);
-    	}else{
-    		drive.shift(false);
-    	}
+    	String solVal = drive.driveSol.get().toString();
+    	SmartDashboard.putString("sol value", solVal);
+    	SmartDashboard.putBoolean("isAutoShiftTrue", drive.isAutoShiftTrue);
+    	SmartDashboard.putData("Right Drive",drive.rightEncoder);
+    	SmartDashboard.putNumber("Right Encoder Rate", drive.rightEncoder.getRate());
+    	SmartDashboard.putNumber("Left Encoder Rate", drive.leftEncoder.getRate());
+    	SmartDashboard.putData("Left Drive", drive.leftEncoder);
+    	drive.autoShift();
+//    	if(oi.driver.shift()){
+//    		drive.shift(true);
+//    	}else{
+//    		drive.shift(false);
+//    	}
     	if(oi.operator.lowPowerStatePressed()){
     		shootState = "low";
     	}

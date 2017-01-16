@@ -24,13 +24,15 @@ public class DrivetrainSubsystem extends Subsystem {
 	public DoubleSolenoid driveSol;
 	double currentSpeedLeft;
 	double currentSpeedRight;
+	public boolean isAutoShiftTrue;
 
 	
 	public DrivetrainSubsystem() {
+		isAutoShiftTrue = false;
 		currentSpeedLeft = 0.0;
 		currentSpeedRight = 0.0;
-		//leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_SIDE_ENCODER[0],RobotMap.Drivetrain.LEFT_SIDE_ENCODER[1],false);
-		//rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_SIDE_ENCODER[0],RobotMap.Drivetrain.RIGHT_SIDE_ENCODER[1],true);
+		leftEncoder = new Encoder(RobotMap.Drivetrain.LEFT_SIDE_ENCODER[0],RobotMap.Drivetrain.LEFT_SIDE_ENCODER[1],false);
+		rightEncoder = new Encoder(RobotMap.Drivetrain.RIGHT_SIDE_ENCODER[0],RobotMap.Drivetrain.RIGHT_SIDE_ENCODER[1],true);
 //		leftEncoder.setDistancePerPulse(360.0 / 256.0
 //				* 20.0 / 50.0 * 20.0 / 48.0 * 16.0 / 48.0);
 //		rightEncoder.setDistancePerPulse(360.0 / 256.0
@@ -48,11 +50,13 @@ public class DrivetrainSubsystem extends Subsystem {
 		
 	}
 	public void autoShift(){
-//		if((leftEncoder.getRate() + rightEncoder.getRate())/2 > RobotMap.Drivetrain.MAX_LOW_SPEED*0.75){
-//			shift(true);
-//		}else{
-//			shift(false);
-//		}
+		if((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.75){
+			shift(true);
+			isAutoShiftTrue = true;
+		}else{
+			shift(false);
+			isAutoShiftTrue = false;
+		}
 	}
 	public void driveWithEncoder(double left, double right){
 		double targetRPMLeft = RobotMap.Drivetrain.MAX_SPEED*left;
@@ -113,6 +117,16 @@ public class DrivetrainSubsystem extends Subsystem {
 		}else{
 			currentSpeedRight = 0.0;
 		}
+		if(currentSpeedLeft > 1.0){
+			currentSpeedLeft = 1.0;
+		}else if(currentSpeedLeft < -1.0){
+			currentSpeedLeft = -1.0;
+		}
+		if(currentSpeedRight > 1.0){
+			currentSpeedRight = 1.0;
+		}else if(currentSpeedRight < -1.0){
+			currentSpeedRight = -1.0;
+		}
 		motors[0].set(currentSpeedRight);
 		motors[1].set(currentSpeedRight);
 		motors[2].set(currentSpeedLeft);
@@ -129,7 +143,7 @@ public class DrivetrainSubsystem extends Subsystem {
         double max = Math.max(1, Math.max(Math.abs(left), Math.abs(right)));
         left /= max;
         right /= max;
-        rawDrive(left, right);
+        driveWithEncoder(left, right);
     }
 	public void shift(Boolean highGear){
 		driveSol.set(highGear ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
