@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,9 +26,10 @@ public class DrivetrainSubsystem extends Subsystem {
 	double currentSpeedLeft;
 	double currentSpeedRight;
 	public boolean isAutoShiftTrue;
-
+	Timer time;
 	
 	public DrivetrainSubsystem() {
+		time = new Timer();
 		isAutoShiftTrue = false;
 		currentSpeedLeft = 0.0;
 		currentSpeedRight = 0.0;
@@ -50,12 +52,15 @@ public class DrivetrainSubsystem extends Subsystem {
 		
 	}
 	public void autoShift(){
-		if((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.75){
+		if((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.7){
 			shift(true);
 			isAutoShiftTrue = true;
-		}else{
+			time.start();
+		}else if(time.get() > 1.0){
 			shift(false);
 			isAutoShiftTrue = false;
+			time.stop();
+			time.reset();
 		}
 	}
 	public void driveWithEncoder(double left, double right){
@@ -143,7 +148,7 @@ public class DrivetrainSubsystem extends Subsystem {
         double max = Math.max(1, Math.max(Math.abs(left), Math.abs(right)));
         left /= max;
         right /= max;
-        driveWithEncoder(left, right);
+        rawDrive(left, right);
     }
 	public void shift(Boolean highGear){
 		driveSol.set(highGear ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);

@@ -19,17 +19,17 @@ public class RobotMap {
 		public static final int SPIKE_PORT = 0;
 		public static final int COMPRESS_LIMIT_CAN = 9;
 		public static final int[] DRIVE_SOL = {4,5};
-		public static final double MAX_SPEED = 2400.0;
-		public static final double MAX_LOW_SPEED = 675.0;
+		public static final double MAX_SPEED = 2000.0;
+		public static final double MAX_LOW_SPEED = 700.0;
 		
 	}
 	public static class Shooter{
 		public static final int LEFT_SHOOTER_VICTOR = 3;//5
 		public static final int RIGHT_SHOOTER_VICTOR = 2;//4
-		public static final double LEFT_SHOOTER_POWER_MAX = 0.4;
-		public static final double RIGHT_SHOOTER_POWER_MAX = 0.4;
-		public static final double LEFT_SHOOTER_POWER_MID = 0.4;
-		public static final double RIGHT_SHOOTER_POWER_MID = 0.4;
+		public static final double LEFT_SHOOTER_POWER_MAX = 0.5;
+		public static final double RIGHT_SHOOTER_POWER_MAX = 0.5;
+		public static final double LEFT_SHOOTER_POWER_MID = 0.5;
+		public static final double RIGHT_SHOOTER_POWER_MID = 0.5;
 		public static final double LEFT_SHOOTER_POWER_MIN = .45;
 		public static final double RIGHT_SHOOTER_POWER_MIN = .45;
 	}

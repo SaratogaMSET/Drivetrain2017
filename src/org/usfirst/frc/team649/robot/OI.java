@@ -58,7 +58,7 @@ public class OI {
 			
 			public double getRotation() {
 				if(driveJoystickHorizontal.getX() >= 0.05 || driveJoystickHorizontal.getX() <= -0.05){
-					return driveJoystickHorizontal.getX();
+					return -driveJoystickHorizontal.getX();
 				}else{
 					return 0.0;
 				}
