@@ -26,10 +26,14 @@ public class DrivetrainSubsystem extends Subsystem {
 	double currentSpeedLeft;
 	double currentSpeedRight;
 	public boolean isAutoShiftTrue;
-	Timer time;
+	public Timer time;
+	Timer timeUp;
 	
 	public DrivetrainSubsystem() {
 		time = new Timer();
+		timeUp = new Timer();
+		timeUp.start();
+
 		isAutoShiftTrue = false;
 		currentSpeedLeft = 0.0;
 		currentSpeedRight = 0.0;
@@ -52,12 +56,17 @@ public class DrivetrainSubsystem extends Subsystem {
 		
 	}
 	public void autoShift(){
-		if((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.7){
+		//have a deadzone of no change
+		if(((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.75)&&timeUp.get()>1.0){
 			shift(true);
+			timeUp.stop();
+			timeUp.reset();
 			isAutoShiftTrue = true;
+			
 			time.start();
 		}else if(time.get() > 1.0){
 			shift(false);
+			timeUp.start();
 			isAutoShiftTrue = false;
 			time.stop();
 			time.reset();
