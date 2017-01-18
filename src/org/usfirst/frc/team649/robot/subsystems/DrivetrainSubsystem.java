@@ -1,21 +1,25 @@
 package org.usfirst.frc.team649.robot.subsystems;
 
 import org.usfirst.frc.team649.robot.RobotMap;
+import org.usfirst.frc.team649.robot.subsystems.drivetrain.DrivetrainSubsystem.PIDConstants;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DrivetrainSubsystem extends Subsystem {
+public class DrivetrainSubsystem extends PIDSubsystem {
     
 	public Encoder leftEncoder, rightEncoder;
 	public DigitalInput limit;
@@ -26,10 +30,22 @@ public class DrivetrainSubsystem extends Subsystem {
 	double currentSpeedLeft;
 	double currentSpeedRight;
 	public boolean isAutoShiftTrue;
+	public PIDController encoderDrivePID;
 	public Timer time;
+	public boolean shiftState; //false == low true == high
 	Timer timeUp;
 	
+	public static class PIDConstants {
+		public static final double PID_ABSOLUTE_TOLERANCE =3.0;
+		public static final double ABS_TOLERANCE = 3.0;
+		public static  double k_P = .05; 
+		public static double k_I = 0;
+		public static double k_D = 0.03;
+	}
+	
 	public DrivetrainSubsystem() {
+		super ("Drivetrain", PIDConstants.k_P, PIDConstants.k_I, PIDConstants.k_D);
+		shiftState = false;
 		time = new Timer();
 		timeUp = new Timer();
 		timeUp.start();
@@ -53,23 +69,32 @@ public class DrivetrainSubsystem extends Subsystem {
 		driveSol  = new DoubleSolenoid(RobotMap.Drivetrain.DRIVE_SOL[0],
 				RobotMap.Drivetrain.DRIVE_SOL[1]);
 //		compressCAN.setClosedLoopControl(true);
+		encoderDrivePID = this.getPIDController();
+		encoderDrivePID.setAbsoluteTolerance(PIDConstants.PID_ABSOLUTE_TOLERANCE);
+		encoderDrivePID.setOutputRange(-.65, .65);
+		
 		
 	}
 	public void autoShift(){
 		//have a deadzone of no change
-		if(((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.75)&&timeUp.get()>1.0){
+		if(shiftState){
 			shift(true);
 			timeUp.stop();
 			timeUp.reset();
-			isAutoShiftTrue = true;
-			
 			time.start();
-		}else if(time.get() > 1.0){
+		}else{
 			shift(false);
 			timeUp.start();
-			isAutoShiftTrue = false;
 			time.stop();
 			time.reset();
+		}
+		if(((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) < RobotMap.Drivetrain.MAX_LOW_SPEED*1.85)
+				&&((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.8)){
+			
+		}else if(((Math.abs(leftEncoder.getRate()) + Math.abs(rightEncoder.getRate())) > RobotMap.Drivetrain.MAX_LOW_SPEED*1.75)&&timeUp.get()>0.1){
+			shiftState = true;		
+		}else if(time.get() > 0.1){
+			shiftState = false;
 		}
 	}
 	public void driveWithEncoder(double left, double right){
@@ -192,5 +217,15 @@ public class DrivetrainSubsystem extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
