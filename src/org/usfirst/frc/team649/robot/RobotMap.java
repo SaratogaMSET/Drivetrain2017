@@ -19,7 +19,7 @@ public class RobotMap {
 		public static final int SPIKE_PORT = 0;
 		public static final int COMPRESS_LIMIT_CAN = 9;
 		public static final int[] DRIVE_SOL = {4,5};
-		public static final double MAX_SPEED = 2000.0;
+		public static final double MAX_SPEED = 1500.0;
 		public static final double MAX_LOW_SPEED = 700.0;
 		
 	}

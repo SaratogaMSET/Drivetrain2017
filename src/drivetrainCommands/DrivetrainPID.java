@@ -28,7 +28,7 @@ public class DrivetrainPID extends Command {
     	//drivePIDRight.enable();
 //    	Robot.isPIDActive = true;
 //    	double setpoint = Robot.drivetrain.getPosition() + distance;
-    	drivePID.setSetpoint(setpoint);
+//    	drivePID.setSetpoint(setpoint);
     }
 
     // Called repeatedly when this Command is scheduled to run

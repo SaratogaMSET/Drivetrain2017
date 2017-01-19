@@ -80,17 +80,19 @@ public class Robot extends IterativeRobot {
     	String solVal = drive.driveSol.get().toString();
     	SmartDashboard.putString("sol value", solVal);
     	SmartDashboard.putNumber("timer", drive.time.get());
-    	SmartDashboard.putBoolean("isAutoShiftTrue", drive.isAutoShiftTrue);
+    	SmartDashboard.putBoolean("isAutoShiftTrue", drive.shiftState);
     	SmartDashboard.putData("Right Drive",drive.rightEncoder);
     	SmartDashboard.putNumber("Right Encoder Rate", drive.rightEncoder.getRate());
     	SmartDashboard.putNumber("Left Encoder Rate", drive.leftEncoder.getRate());
     	SmartDashboard.putData("Left Drive", drive.leftEncoder);
-    	drive.autoShift();
-//    	if(oi.driver.shift()){
-//    		drive.shift(true);
-//    	}else{
-//    		drive.shift(false);
-//    	}
+ 
+    	if(oi.driver.shiftUp()){
+    		drive.shift(true);
+    	}else if(oi.driver.shiftDown()){
+    		drive.shift(false);
+    	}else{
+    		drive.autoShift();
+    	}
     	if(oi.operator.lowPowerStatePressed()){
     		shootState = "low";
     	}
@@ -119,7 +121,7 @@ public class Robot extends IterativeRobot {
     	}
 
     	drive.spikey();
-    	drive.driveFwdRot(oi.driver.getForward(), oi.driver.getRotation());
+    	drive.driveFwdRot( oi.driver.getForward(),oi.driver.getRotation());
 
     	
     }
