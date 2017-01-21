@@ -19,8 +19,8 @@ public class ShooterSubsystem extends Subsystem {
 		rightMotor = new Victor(RobotMap.Shooter.RIGHT_SHOOTER_VICTOR);
 	}
 	public void shoot(double leftRatio, double rightRatio){
-		leftMotor.set(leftRatio);
-		rightMotor.set(-rightRatio);
+		leftMotor.set(-leftRatio);
+		rightMotor.set(rightRatio);
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
