@@ -3,6 +3,7 @@ package org.usfirst.frc.team649.robot.subsystems;
 import org.usfirst.frc.team649.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,15 +16,22 @@ public class TurretSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	public Victor turretMotor;
+	public Servo hoodServo;
 	public Encoder turretShaftEncoder;
+	public double angleOfShooter;
 	
 	public TurretSubsystem(){
 		turretMotor = new Victor(RobotMap.Turret.PIVOT_VICTOR);
 		turretShaftEncoder = new Encoder(RobotMap.Turret.PIVOT_SHAFT_ENCODER[0],RobotMap.Turret.PIVOT_SHAFT_ENCODER[1]);
-		
+		hoodServo = new Servo(RobotMap.Turret.HOOD_SERVO);
 	}
 	public void rotate(double power){
 		turretMotor.set(power);
+	}
+	public void angleShooter(double angle)
+	{
+		angleOfShooter = angle;
+		hoodServo.set(angle);
 	}
 
     public void initDefaultCommand() {

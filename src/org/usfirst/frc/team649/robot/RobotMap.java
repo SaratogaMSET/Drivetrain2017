@@ -48,6 +48,7 @@ public class RobotMap {
 	public static class Turret{
 		public static final int PIVOT_VICTOR = 4;
 		public static final int[] PIVOT_SHAFT_ENCODER = {4,5};
+		public static final int HOOD_SERVO = 5;
 	}
 	public static class GyroShooter{
 		public static final int GYRO_PORT = 0;
