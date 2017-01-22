@@ -63,8 +63,12 @@ public class OI {
 					return 0.0;
 				}
 			}
-			public Boolean shift(){
-				return driveJoystickVertical.getRawButton(1) || driveJoystickHorizontal.getRawButton(1);
+			public Boolean shiftDown(){
+				return driveJoystickVertical.getRawButton(1) ;
+			}
+			public Boolean shiftUp(){
+				return driveJoystickHorizontal.getRawButton(1);
+				
 			}
 
 			
