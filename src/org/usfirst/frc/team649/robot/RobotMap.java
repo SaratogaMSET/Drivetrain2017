@@ -33,6 +33,13 @@ public class RobotMap {
 		public static final double LEFT_SHOOTER_POWER_MIN = .45;
 		public static final double RIGHT_SHOOTER_POWER_MIN = .45;
 	}
+	public static class GyroShooter{
+		public static final int GYRO_PORT = 0;
+		public static final double GYRO_DEFAULT_ANGLE_VERTICAL = 0;
+		public static final double GYRO_DEFAULT_ANGLE_HORIZONTAL = 0;
+		public static final double GYRO_ANGLE_TO_FACE = 0;
+		public static final int GYRO_TURRET_MOTOR_PORT=0;
+	}
 
     // For example to map the left and right motors, you could define the
     // following variables to use with your drivetrain subsystem.
