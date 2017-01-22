@@ -29,6 +29,13 @@ public class OI {
 	
 
 		public class Operator {
+			public double getRot(){
+				if(operatorJoystick.getX()>=0.05 || operatorJoystick.getX()<-0.05){
+					return operatorJoystick.getX();
+				}else{
+					return 0.0;
+				}
+			}
 			public boolean shootPressed() {
 				return operatorJoystick.getRawButton(1);
 			}

@@ -5,6 +5,7 @@ package org.usfirst.frc.team649.robot;
 
 import org.usfirst.frc.team649.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team649.robot.subsystems.ShooterSubsystem;
+import org.usfirst.frc.team649.robot.subsystems.TurretSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,8 +28,8 @@ public class Robot extends IterativeRobot {
 	OI oi;
 	public static ShooterSubsystem shoot;
 	public String shootState;
-
-
+	public static TurretSubsystem turret;
+	
 	
     public void robotInit() {
     	drive = new DrivetrainSubsystem();
@@ -85,6 +86,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("Left Encoder Rate", drive.leftEncoder.getRate());
     	SmartDashboard.putData("Left Drive", drive.leftEncoder);
     	drive.autoShift();
+    	turret.rotate(oi.operator.getRot());
 //    	if(oi.driver.shift()){
 //    		drive.shift(true);
 //    	}else{
@@ -116,7 +118,7 @@ public class Robot extends IterativeRobot {
     	else{
     		shoot.shoot(0.0, 0.0);
     	}
-
+    	
     	drive.spikey();
     	drive.driveFwdRot(oi.driver.getForward(), oi.driver.getRotation());
 

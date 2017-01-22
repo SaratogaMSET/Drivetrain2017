@@ -45,6 +45,10 @@ public class RobotMap {
 		public static final double LEFT_SHOOTER_POWER_MAX = 0;
 		public static final double RIGHT_SHOOTER_POWER_MAX = 0;
 	}
+	public static class Turret{
+		public static final int PIVOT_VICTOR = 4;
+		public static final int[] PIVOT_SHAFT_ENCODER = {4,5};
+	}
 	public static class GyroShooter{
 		public static final int GYRO_PORT = 0;
 		public static final double GYRO_DEFAULT_ANGLE_VERTICAL = 0;
