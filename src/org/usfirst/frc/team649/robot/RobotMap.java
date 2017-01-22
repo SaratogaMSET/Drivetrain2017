@@ -26,12 +26,20 @@ public class RobotMap {
 	public static class Shooter{
 		public static final int LEFT_SHOOTER_VICTOR = 3;//5
 		public static final int RIGHT_SHOOTER_VICTOR = 2;//4
-		public static final double LEFT_SHOOTER_POWER_MAX = 0.5;
-		public static final double RIGHT_SHOOTER_POWER_MAX = 0.5;
-		public static final double LEFT_SHOOTER_POWER_MID = 0.5;
-		public static final double RIGHT_SHOOTER_POWER_MID = 0.5;
 		public static final double LEFT_SHOOTER_POWER_MIN = 0.25;
 		public static final double RIGHT_SHOOTER_POWER_MIN = 0.25;
+		public static final int LEFT_ENISTEIN_PORT = 0;
+		public static final int RIGHT_ENISTEIN_PORT = 1;
+		public static final double LEFT_MAX_RPM_WALL = 2800;
+		public static final double RIGHT_MAX_RPM_WALL = 2800;
+		public static final double LEFT_MIN_RPM_WALL = 2400;
+		public static final double RIGHT_MIN_RPM_WALL = 2400;
+		public static final double LEFT_TARGET_RPM_WALL = 2600;
+		public static final double RIGHT_TARGET_RPM_WALL = 2600;
+		public static final double LEFT_MIN_POWER_WALL = 0.225;
+		public static final double RIGHT_MIN_POWER_WALL = 0.225;
+		public static final double LEFT_MAX_POWER_WALL = 0.25;
+		public static final double RIGHT_MAX_POWER_WALL = 0.25;
 	}
 
     // For example to map the left and right motors, you could define the

@@ -78,6 +78,8 @@ public class Robot extends IterativeRobot {
 		
     public void teleopPeriodic() {
     	String solVal = drive.driveSol.get().toString();
+    	SmartDashboard.putNumber("LEFT SHOOTER RPM", shoot.leftCount());
+    	SmartDashboard.putNumber("RIGHT SHOOTER RPM", shoot.rightCount());
     	SmartDashboard.putString("sol value", solVal);
     	SmartDashboard.putNumber("timer", drive.time.get());
     	SmartDashboard.putBoolean("isAutoShiftTrue", drive.shiftState);
@@ -103,18 +105,7 @@ public class Robot extends IterativeRobot {
     		shootState = "high";
     	}
     	if(oi.operator.shootPressed()){
-    		switch(shootState){
-    		case "low":
-    			shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MIN, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MIN);
-    			break;
-    		case "mid":
-    			shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MID, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MID);
-    			break;
-    		case "high":
-    			shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MAX, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MAX);
-    			break;
-    		}
-    		
+    		shoot.shoot(RobotMap.Shooter.LEFT_SHOOTER_POWER_MIN, RobotMap.Shooter.RIGHT_SHOOTER_POWER_MIN);	
     	}
     	else{
     		shoot.shoot(0.0, 0.0);
