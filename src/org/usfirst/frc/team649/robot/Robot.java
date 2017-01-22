@@ -80,11 +80,8 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	String solVal = drive.driveSol.get().toString();
     	SmartDashboard.putString("sol value", solVal);
-    	SmartDashboard.putBoolean("isAutoShiftTrue", drive.isAutoShiftTrue);
-    	SmartDashboard.putData("Right Drive",drive.rightEncoder);
-    	SmartDashboard.putNumber("Right Encoder Rate", drive.rightEncoder.getRate());
-    	SmartDashboard.putNumber("Left Encoder Rate", drive.leftEncoder.getRate());
-    	SmartDashboard.putData("Left Drive", drive.leftEncoder);
+    	SmartDashboard.putData("left ein", shoot.leftEinstein);
+    	SmartDashboard.putData("right ein", shoot.rightEinstein);
     	drive.autoShift();
     	turret.rotate(oi.operator.getRot());
 //    	if(oi.driver.shift()){

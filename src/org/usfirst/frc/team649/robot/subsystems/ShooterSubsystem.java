@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterSubsystem extends Subsystem {
 	Victor leftMotor;
 	Victor rightMotor;
-	Counter leftEinstein, rightEinstein;
+	public Counter leftEinstein, rightEinstein;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
