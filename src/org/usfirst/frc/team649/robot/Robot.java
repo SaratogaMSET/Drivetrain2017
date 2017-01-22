@@ -80,8 +80,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	String solVal = drive.driveSol.get().toString();
     	SmartDashboard.putString("sol value", solVal);
-    	SmartDashboard.putData("left ein", shoot.leftEinstein);
-    	SmartDashboard.putData("right ein", shoot.rightEinstein);
+    	SmartDashboard.putData("left einstein", shoot.leftEinstein);
+    	SmartDashboard.putData("right einstein", shoot.rightEinstein);
+    	SmartDashboard.putNumber("angle of hood shot",turret.hoodServo.getAngle());
     	drive.autoShift();
     	turret.rotate(oi.operator.getRot());
 //    	if(oi.driver.shift()){
