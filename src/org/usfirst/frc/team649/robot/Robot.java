@@ -34,6 +34,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	drive = new DrivetrainSubsystem();
     	shoot = new ShooterSubsystem();
+    	turret = new TurretSubsystem();
     	oi = new OI();
     	shootState = "low";
 
