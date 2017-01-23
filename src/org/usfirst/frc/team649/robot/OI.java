@@ -37,11 +37,17 @@ public class OI {
 
 		public boolean angleShotTowardsBackPressed()
 		{
-			return operatorJoystick.getRawButton(2);
+			if (operatorJoystick.getPOV() == 180) {
+				return true;
+			}
+			return false;
 		}
 		public boolean angleShotTowardsFrontPressed()
 		{
-			return operatorJoystick.getRawButton(3);
+			if (operatorJoystick.getPOV() == 0) {
+				return true;
+			}
+			return false;
 		}
 		public boolean shootPressed() {
 			return operatorJoystick.getRawButton(1);
