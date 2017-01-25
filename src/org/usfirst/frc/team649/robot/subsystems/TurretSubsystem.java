@@ -34,11 +34,15 @@ public class TurretSubsystem extends PIDSubsystem {
 	public Victor turretMotor;
 	public Encoder turretShaftEncoder;
 	public PIDController pid;
+	public Servo hoodServo;
+	public double angleOfShooter;
 	
 	public TurretSubsystem(){
 		super ("Turret Subsystem", PIDConstants.k_P, PIDConstants.k_I, PIDConstants.k_D);
 		
 		turretMotor = new Victor(RobotMap.Turret.PIVOT_VICTOR);
+		
+		hoodServo = new Servo(RobotMap.Turret.HOOD_SERVO);
 		
 		turretShaftEncoder = new Encoder(RobotMap.Turret.PIVOT_SHAFT_ENCODER[0],
 				 RobotMap.Turret.PIVOT_SHAFT_ENCODER[1]);
@@ -58,6 +62,10 @@ public class TurretSubsystem extends PIDSubsystem {
 		return (setpoint-turretShaftEncoder.getDistance()) > PIDConstants.ABSOLUTE_TOLERANCE;
 	}
 	
+	public void setHoodAngle(double angle) {
+		angleOfShooter = angle;
+		hoodServo.setAngle(angleOfShooter);
+	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

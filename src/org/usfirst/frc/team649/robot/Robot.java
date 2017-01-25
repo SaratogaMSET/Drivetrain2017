@@ -93,12 +93,12 @@ public class Robot extends IterativeRobot {
 //    	}
     	if(oi.operator.angleShotTowardsBackPressed())
     	{
-    		turret.angleOfShooter=turret.hoodServo.getAngle()-1;
+    		turret.angleOfShooter = turret.hoodServo.getAngle() - 1;
     		turret.angleShooter(turret.angleOfShooter);
     	}
     	if(oi.operator.angleShotTowardsBackPressed())
     	{
-    		turret.angleOfShooter=turret.hoodServo.getAngle()+1;
+    		turret.angleOfShooter = turret.hoodServo.getAngle() + 1;
     		turret.angleShooter(turret.angleOfShooter);
     	}
     	if(oi.operator.lowPowerStatePressed()){
