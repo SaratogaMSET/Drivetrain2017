@@ -22,14 +22,14 @@ public class TurretSubsystem extends PIDSubsystem {
 		public static final double k_I = 0.0;
 		public static final double k_D = 0.05;
 		
-		public static final double ENCODER_DEGREES_PER_PULSE = 360.0 / 256.0
+		public static final double ENCODER_DISTANCE_PER_PULSE = 360.0 / 256.0
 				* 200.0/18.0; // uhh ... guessed;
 		
 		public static final double MAX_MOTOR_OUTPUT = 0.05;
 		public static final double MIN_MOTOR_OUTPUT = 0.01;
 		public static final double ABSOLUTE_TOLERANCE = 0.05;
 	}
-	public static final double ENCODER_CIRCUMFERENCE = 5.5*Math.PI;
+	public static final double TURRET_CIRCUMFERENCE = 5.5*Math.PI;
 	
 	public Victor turretMotor;
 	public Encoder turretShaftEncoder;
@@ -46,7 +46,7 @@ public class TurretSubsystem extends PIDSubsystem {
 		
 		turretShaftEncoder = new Encoder(RobotMap.Turret.PIVOT_SHAFT_ENCODER[0],
 				 RobotMap.Turret.PIVOT_SHAFT_ENCODER[1]);
-		turretShaftEncoder.setDistancePerPulse(PIDConstants.ENCODER_DEGREES_PER_PULSE);
+		turretShaftEncoder.setDistancePerPulse(PIDConstants.ENCODER_DISTANCE_PER_PULSE);
 		
 		pid = this.getPIDController();
 		pid.enable();
@@ -73,14 +73,14 @@ public class TurretSubsystem extends PIDSubsystem {
 	
 	public double getClosestAngleToSetpoint(double setpoint) {
 		double diff1 = Math.abs(turretShaftEncoder.getDistance()-setpoint);
-		double diff2 = Math.abs(ENCODER_CIRCUMFERENCE-setpoint);
+		double diff2 = Math.abs(TURRET_CIRCUMFERENCE-setpoint);
 		if (diff1 > diff2) {
-			return diff2;
+			return TURRET_CIRCUMFERENCE - turretShaftEncoder.getDistance();
 		} 
 		else if (diff2 > diff1) {
-			return diff1;
+			return turretShaftEncoder.getDistance();
 		}
-		return diff1;
+		return turretShaftEncoder.getDistance();
 	}
 
     public void initDefaultCommand() {

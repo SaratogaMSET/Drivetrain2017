@@ -10,16 +10,26 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class DrivetrainSubsystem extends Subsystem {
+public class DrivetrainSubsystem extends PIDSubsystem {
     
+	
+	public static class DrivePID {
+		public static final double k_P = 0.0;
+		public static final double k_I = 0.0;
+		public static final double k_D = 0.0;
+		
+		public static final double ABSOLUTE_TOLERANCE = 0.05;
+	}
 	public Encoder leftEncoder, rightEncoder;
 	public DigitalInput limit;
+	public PIDController drivePID;
 	public Victor [] motors;
 	public Relay spike;
 	public Compressor compressCAN;
@@ -30,6 +40,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	Timer time;
 	
 	public DrivetrainSubsystem() {
+		super ("Drivetrain PID", DrivePID.k_P, DrivePID.k_I, DrivePID.k_P);
 		time = new Timer();
 		isAutoShiftTrue = false;
 		currentSpeedLeft = 0.0;
@@ -50,6 +61,7 @@ public class DrivetrainSubsystem extends Subsystem {
 		driveSol  = new DoubleSolenoid(RobotMap.Drivetrain.DRIVE_SOL[0],
 				RobotMap.Drivetrain.DRIVE_SOL[1]);
 //		compressCAN.setClosedLoopControl(true);
+		drivePID = this.getPIDController();
 		
 	}
 	public void autoShift(){
@@ -176,6 +188,20 @@ public class DrivetrainSubsystem extends Subsystem {
     	}
 
     }
+    public double getDistanceDTLeft() {
+    	return leftEncoder.getDistance();
+    }
+    
+    public double getDistanceDTRight() {
+    	return rightEncoder.getDistance();
+    }
+    public double getDistanceDTBoth() {
+    	return rightEncoder.getDistance()/2 + leftEncoder.getDistance()/2;
+    }
+    
+    public boolean isOnTarget(double setpoint) {
+    	return Math.abs(getDistanceDTBoth()-setpoint) < DrivePID.ABSOLUTE_TOLERANCE;
+    }
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -186,6 +212,17 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 	public PIDController getPIDController() {
 		// TODO Auto-generated method stub
-		return null;
+		return drivePID;
+	}
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return getDistanceDTBoth();
+	}
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		rawDrive(output, output);
+		
 	}
 }
