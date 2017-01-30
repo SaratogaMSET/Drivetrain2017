@@ -29,6 +29,13 @@ public class OI {
 	
 
 		public class Operator {
+			public double getRot(){
+				if(operatorJoystick.getX()>= 0.05|| operatorJoystick.getX() <= -0.05){
+					return operatorJoystick.getX()/4;
+				}else{
+					return 0.0;
+				}
+			}
 			public boolean shootPressed() {
 				return operatorJoystick.getRawButton(1);
 			}
@@ -40,6 +47,13 @@ public class OI {
 			}
 			public boolean maxPowerstatePressed(){
 				return operatorJoystick.getRawButton(8);
+			}
+			public double getSlider(){
+				return ((-operatorJoystick.getRawAxis(3))+1)/2; 
+			}
+			public boolean runFeedPressed()
+			{
+				return operatorJoystick.getRawButton(2);
 			}
 		}
 	

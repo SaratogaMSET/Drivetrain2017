@@ -3,6 +3,7 @@ package org.usfirst.frc.team649.robot.subsystems;
 import org.usfirst.frc.team649.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,11 +16,11 @@ public class TurretSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	public Victor turretMotor;
-	public Encoder turretShaftEncoder;
+//	public Encoder turretShaftEncoder;
 	
 	public TurretSubsystem(){
 		turretMotor = new Victor(RobotMap.Turret.PIVOT_VICTOR);
-		turretShaftEncoder = new Encoder(RobotMap.Turret.PIVOT_SHAFT_ENCODER[0],RobotMap.Turret.PIVOT_SHAFT_ENCODER[1]);
+//		turretShaftEncoder = new Encoder(RobotMap.Turret.PIVOT_SHAFT_ENCODER[0],RobotMap.Turret.PIVOT_SHAFT_ENCODER[1]);
 		
 	}
 	public void rotate(double power){
@@ -29,6 +30,10 @@ public class TurretSubsystem extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    public double getTurretSpeed()
+    {
+    	return turretMotor.getSpeed();
     }
 }
 
