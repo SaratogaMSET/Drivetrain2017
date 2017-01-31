@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team649.robot;
 
+import org.usfirst.frc.team649.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team649.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team649.robot.subsystems.HoodSubsystem;
 import org.usfirst.frc.team649.robot.subsystems.IntakeSubsytem;
@@ -24,12 +25,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static DrivetrainSubsystem drive;
-	OI oi;
+	public static OI oi;
 	public static ShooterSubsystem shoot;
-	public TurretSubsystem turret;
-	public String shootState;
-	public IntakeSubsytem intake;
-	public HoodSubsystem hood;
+	public static TurretSubsystem turret;
+	public static String shootState;
+	public static IntakeSubsytem intake;
+	public static HoodSubsystem hood;
 
 	public void robotInit() {
 		drive = new DrivetrainSubsystem();
@@ -87,7 +88,8 @@ public class Robot extends IterativeRobot {
 		// drive.leftEncoder.getRate());
 		// SmartDashboard.putData("Left Drive", drive.leftEncoder);
 //		SmartDashboard.putNumber("Lidar", hood.getDistance());
-		intake.setIntakeVictor(oi.operatorJoystick.getY());
+		//intake.setIntakeVictor(oi.operatorJoystick.getY());
+		new RunIntake(oi.operatorJoystick.getY()).start();
 		if (oi.driver.shiftDown()) {
 			drive.shift(false);
 		} else if (oi.driver.shiftUp()) {
