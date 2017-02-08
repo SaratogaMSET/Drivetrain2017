@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -20,7 +21,7 @@ public class DrivetrainSubsystem extends Subsystem {
     
 	public Encoder leftEncoder, rightEncoder;
 	public DigitalInput limit;
-	public Victor [] motors;
+	public TalonSRX[] motors;
 	public Relay spike;
 	public Compressor compressCAN;
 	public DoubleSolenoid driveSol;
@@ -42,10 +43,10 @@ public class DrivetrainSubsystem extends Subsystem {
 //				* 20.0 / 50.0 * 20.0 / 48.0 * 16.0 / 48.0);
 		compressCAN = new Compressor();
 		spike = new Relay(RobotMap.Drivetrain.SPIKE_PORT);
-		motors = new Victor[4];
+		motors = new TalonSRX[4];
 		//FR,BR,BL,BR
 		for(int i =0; i < motors.length; i++) {
-			motors[i] = new Victor(RobotMap.Drivetrain.MOTOR_PORTS[i]);
+			motors[i] = new TalonSRX(RobotMap.Drivetrain.MOTOR_PORTS[i]);
 		}
 		driveSol  = new DoubleSolenoid(RobotMap.Drivetrain.DRIVE_SOL[0],
 				RobotMap.Drivetrain.DRIVE_SOL[1]);
