@@ -32,11 +32,11 @@ public class RobotMap {
 		public static final double RIGHT_SHOOTER_POWER_MIN = 0.3;
 		public static final int LEFT_ENISTEIN_PORT = 1;
 		public static final int RIGHT_EINSTEIN_PORT = 0;
-		public static final int WALL_TARGET_RPM = 1200;
-		public static final double MAX_POWER_RIGHT = 0.25;
+		public static final int WALL_TARGET_RPM = 1700;
+		public static final double MAX_POWER_RIGHT = 0.5;
 		public static final double MIN_POWER_RIGHT = 0.18;
 		public static final double MIN_POWER_LEFT = 0.1;
-		public static final double MAX_POWER_LEFT = 0.17;
+		public static final double MAX_POWER_LEFT = 0.5;
 	}
 //	public static class GyroShooter{
 //		public static final int GYRO_PORT = 0;

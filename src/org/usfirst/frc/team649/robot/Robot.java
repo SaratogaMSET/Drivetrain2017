@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static String shootState;
 	public static IntakeSubsytem intake;
 	public static HoodSubsystem hood;
-
+    
 	public void robotInit() {
 		drive = new DrivetrainSubsystem();
 		shoot = new ShooterSubsystem();
@@ -61,16 +61,18 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-
+		RunIntake intakeCommand = new RunIntake(0.3);
+		intakeCommand.start();
 	}
 
 	public void teleopInit() {
-
+		
 		shoot.resetEins();
 
 	}
 
 	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
 		// String solVal = drive.driveSol.get().toString();
 		 SmartDashboard.putNumber("LEFT RPM", shoot.leftCount());
 		 SmartDashboard.putNumber("RIGHT RPM", shoot.rightCount());
@@ -90,6 +92,7 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putNumber("Lidar", hood.getDistance());
 		//intake.setIntakeVictor(oi.operatorJoystick.getY());
 		new RunIntake(oi.operatorJoystick.getY()).start();
+		//the above method call works but not the command
 		if (oi.driver.shiftDown()) {
 			drive.shift(false);
 		} else if (oi.driver.shiftUp()) {
@@ -108,7 +111,7 @@ public class Robot extends IterativeRobot {
 		// }else{
 		// drive.shift(false);
 		if(oi.operator.shootPressed()){
-		shoot.targetRPMFlywheels(RobotMap.Shooter.MIN_POWER_LEFT, RobotMap.Shooter.MIN_POWER_RIGHT, RobotMap.Shooter.MAX_POWER_LEFT, RobotMap.Shooter.MAX_POWER_RIGHT, RobotMap.Shooter.WALL_TARGET_RPM, RobotMap.Shooter.WALL_TARGET_RPM);
+			shoot.targetRPMFlywheels(RobotMap.Shooter.MIN_POWER_LEFT, RobotMap.Shooter.MIN_POWER_RIGHT, RobotMap.Shooter.MAX_POWER_LEFT, RobotMap.Shooter.MAX_POWER_RIGHT, RobotMap.Shooter.WALL_TARGET_RPM, RobotMap.Shooter.WALL_TARGET_RPM);
 //			 shoot.shoot(oi.operator.getSlider(), oi.operator.getSlider());
 		}else{
 			shoot.shoot(0.0, 0.0);
