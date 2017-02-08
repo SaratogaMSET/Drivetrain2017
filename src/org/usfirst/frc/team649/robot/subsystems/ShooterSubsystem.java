@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShooterSubsystem extends Subsystem {
 	Victor leftMotor;
 	Victor rightMotor;
-	Counter leftEinstein, rightEinstein;
-	Victor feedMotor;
+	public Counter leftEinstein, rightEinstein;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 	
@@ -22,7 +21,6 @@ public class ShooterSubsystem extends Subsystem {
 		rightEinstein = new Counter(RobotMap.Shooter.RIGHT_EINSTEIN_PORT);
 		leftMotor = new Victor(RobotMap.Shooter.LEFT_SHOOTER_VICTOR);
 		rightMotor = new Victor(RobotMap.Shooter.RIGHT_SHOOTER_VICTOR);
-		feedMotor = new Victor(RobotMap.Shooter.FEEDER_VICTOR_PORT);
 	}
 	public void shoot(double leftRatio, double rightRatio){
 		leftMotor.set(-leftRatio);
@@ -34,29 +32,17 @@ public class ShooterSubsystem extends Subsystem {
 	public double rightCount(){
 		return 60/rightEinstein.getPeriod();
 	}
-	public double leftGet(){
-		return leftEinstein.get();
-	}
-	public double rightGet(){
-		return rightEinstein.get();
-	}
-	public void resetEins(){
-		leftEinstein.reset();
-		rightEinstein.reset();
-	}
 	public void setPowerLeft(double power){
 		leftMotor.set(-power);
 	}
 	public void setPowerRight(double power){
 		rightMotor.set(power);
-		
 	}
 	public void targetRPMFlywheels(double minPowerLeft, double minPowerRight, double maxPowerLeft, double maxPowerRight, double targetRPMLeft, double targetRPMRight){
-		
 		if(leftCount()<targetRPMLeft){
 			setPowerLeft(maxPowerLeft);
 		}else{
-			setPowerLeft(minPowerLeft);
+			setPowerRight(minPowerLeft);
 		}
 		if(rightCount()<targetRPMRight){
 			setPowerRight(maxPowerRight);
@@ -64,13 +50,8 @@ public class ShooterSubsystem extends Subsystem {
 			setPowerRight(minPowerRight);
 		}
 	}
-	public void runFeederMotor(double power)
-	{
-		feedMotor.set(-power);
-	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    }
+    }   
 }
-

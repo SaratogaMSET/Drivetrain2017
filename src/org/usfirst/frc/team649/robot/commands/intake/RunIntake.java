@@ -1,6 +1,7 @@
 package org.usfirst.frc.team649.robot.commands.intake;
 
 import org.usfirst.frc.team649.robot.Robot;
+import org.usfirst.frc.team649.robot.subsystems.IntakeSubsytem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class RunIntake extends Command {
 	
 	double speed;
+	IntakeSubsytem intake;
     public RunIntake(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -20,12 +22,13 @@ public class RunIntake extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.intake.setIntakeVictor(speed);
+    	intake = new IntakeSubsytem();
+    	intake.setIntakeVictor(speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	SmartDashboard.putString("Intake State", Robot.intake.intakeState());
+    	SmartDashboard.putString("Intake State", intake.intakeState());
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -37,6 +37,10 @@ public class RobotMap {
 		public static final double MIN_POWER_RIGHT = 0.18;
 		public static final double MIN_POWER_LEFT = 0.1;
 		public static final double MAX_POWER_LEFT = 0.5;
+		public static final double LEFT_SHOOTER_POWER_MID = 0;
+		public static final double RIGHT_SHOOTER_POWER_MID = 0;
+		public static final double LEFT_SHOOTER_POWER_MAX = 0;
+		public static final double RIGHT_SHOOTER_POWER_MAX = 0;
 	}
 //	public static class GyroShooter{
 //		public static final int GYRO_PORT = 0;
