@@ -25,6 +25,9 @@ public class OI {
 	}
 
 	public class Operator {
+		public boolean getTrigger(){
+			return operatorJoystick.getRawButton(1);
+		}
 		public double getRot() {
 			if (operatorJoystick.getZ() >= 0.05 || operatorJoystick.getZ() < -0.05) {
 				return operatorJoystick.getZ();

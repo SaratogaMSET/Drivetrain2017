@@ -23,7 +23,6 @@ public class DrivetrainSubsystem extends Subsystem {
 	public Victor [] motors;
 	public Relay spike;
 	public Compressor compressCAN;
-	public DoubleSolenoid driveSol;
 	double currentSpeedLeft;
 	double currentSpeedRight;
 	public boolean isAutoShiftTrue;
@@ -47,8 +46,7 @@ public class DrivetrainSubsystem extends Subsystem {
 		for(int i =0; i < motors.length; i++) {
 			motors[i] = new Victor(RobotMap.Drivetrain.MOTOR_PORTS[i]);
 		}
-		driveSol  = new DoubleSolenoid(RobotMap.Drivetrain.DRIVE_SOL[0],
-				RobotMap.Drivetrain.DRIVE_SOL[1]);
+		
 //		compressCAN.setClosedLoopControl(true);
 		
 	}
@@ -152,7 +150,7 @@ public class DrivetrainSubsystem extends Subsystem {
         rawDrive(left, right);
     }
 	public void shift(Boolean highGear){
-		driveSol.set(highGear ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
+//		driveSol.set(highGear ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
 	}
 	public boolean isPressed(){
 		return limit.get();
@@ -161,9 +159,7 @@ public class DrivetrainSubsystem extends Subsystem {
         motors[0].set(right);
         motors[1].set(right);
         motors[2].set(-left);
-        motors[3].set(-left);
-       
-        
+        motors[3].set(-left);     
     }
     public void spikey(){
     	if(compressCAN.getPressureSwitchValue()){

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team649.robot;
 
 
+import org.usfirst.frc.team649.robot.commands.SetDriveSol;
 import org.usfirst.frc.team649.robot.subsystems.DrivetrainSubsystem;
 import org.usfirst.frc.team649.robot.subsystems.ShooterSubsystem;
 import org.usfirst.frc.team649.robot.subsystems.TurretSubsystem;
@@ -64,12 +65,11 @@ public class Robot extends IterativeRobot {
 	} 
     	
     	
-    
-
-
-
-    
-    
+    public void autonomousPeriodic(){
+    	
+    }
+   
+   
 
     public void teleopInit() {
     
@@ -77,8 +77,8 @@ public class Robot extends IterativeRobot {
     }
 		
     public void teleopPeriodic() {
-    	String solVal = drive.driveSol.get().toString();
-    	SmartDashboard.putString("sol value", solVal);
+//    	String solVal = drive.driveSol.get().toString();
+//    	SmartDashboard.putString("sol value", solVal);
     	SmartDashboard.putData("left einstein", shoot.leftEinstein);
     	SmartDashboard.putData("right einstein", shoot.rightEinstein);
     	SmartDashboard.putNumber("angle of hood shot",turret.hoodServo.getAngle());
@@ -89,6 +89,12 @@ public class Robot extends IterativeRobot {
 //    	}else{
 //    		drive.shift(false);
 //    	}
+    	if(oi.operator.getTrigger()){
+    		new SetDriveSol(true).start();
+    	}else{
+    		new SetDriveSol(false).start();
+    		
+    	}
     	if(oi.operator.angleShotTowardsBackPressed())
     	{
     		turret.angleOfShooter = turret.hoodServo.getAngle() - 1;
