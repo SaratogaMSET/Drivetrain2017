@@ -1,8 +1,10 @@
 package org.usfirst.frc.team649.robot;
 
 
-import org.usfirst.frc.team649.robot.commands.SetDriveSol;
+import org.usfirst.frc.team649.robot.commands.drivetrain.SetDriveSol;
 import org.usfirst.frc.team649.robot.subsystems.DrivetrainSubsystem;
+import org.usfirst.frc.team649.robot.subsystems.LeftDTPID;
+import org.usfirst.frc.team649.robot.subsystems.RightDTPID;
 import org.usfirst.frc.team649.robot.subsystems.ShooterSubsystem;
 import org.usfirst.frc.team649.robot.subsystems.TurretSubsystem;
 
@@ -28,6 +30,8 @@ public class Robot extends IterativeRobot {
 	public static ShooterSubsystem shoot;
 	public String shootState;
 	public static TurretSubsystem turret;
+	public static LeftDTPID leftDT;
+	public static RightDTPID rightDT;
 	
 	
     public void robotInit() {
@@ -36,6 +40,8 @@ public class Robot extends IterativeRobot {
     	turret = new TurretSubsystem();
     	oi = new OI();
     	shootState = "low";
+    	leftDT = new LeftDTPID();
+    	rightDT = new RightDTPID();
 
     }
 	

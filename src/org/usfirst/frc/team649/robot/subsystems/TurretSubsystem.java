@@ -1,14 +1,13 @@
 package org.usfirst.frc.team649.robot.subsystems;
 
 import org.usfirst.frc.team649.robot.RobotMap;
-import org.usfirst.frc.team649.robot.subsystems.TurretSubsystem.PIDConstants;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
@@ -31,7 +30,7 @@ public class TurretSubsystem extends PIDSubsystem {
 	}
 	public static final double ENCODER_CIRCUMFERENCE = 5.5*Math.PI;
 	
-	public Victor turretMotor;
+	public TalonSRX turretMotor;
 	public Encoder turretShaftEncoder;
 	public PIDController pid;
 	public Servo hoodServo;
@@ -40,7 +39,7 @@ public class TurretSubsystem extends PIDSubsystem {
 	public TurretSubsystem(){
 		super ("Turret Subsystem", PIDConstants.k_P, PIDConstants.k_I, PIDConstants.k_D);
 		
-		turretMotor = new Victor(RobotMap.Turret.PIVOT_VICTOR);
+		turretMotor = new TalonSRX(RobotMap.Turret.PIVOT_VICTOR);
 		
 		hoodServo = new Servo(RobotMap.Hood.HOOD_SERVO);
 		
