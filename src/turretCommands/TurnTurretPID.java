@@ -49,8 +49,6 @@ public class TurnTurretPID extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	turretPID.disable();
-    	Robot.turret.rotate(0);
     	end();
     }
 }
